@@ -3,17 +3,16 @@
 {% block title %}Dashboard{% endblock title %}
 
 {% block content %}
-<h1>Dashboard</h1>
-{% with total_images_created=request.user.images_created.count %}
-<p>Welcome to your dashboard. You have bookmarked {{ total_images_created}}
-  image{{ total_images_created|pluralize }}.</p>
-{% endwith %}
+  <h1>Dashboard</h1>
+  {% comment %} <p>Welcome to your dashboard. You can <a href="{% url "edit" %}">edit your profile</a> or <a href="{% url "password_change" %}">change your password</a>.</p> {% endcomment %}
 
-<p>Drag the following button to your bookmarks toolbar to bookmark images
-  from other websites → <a href="javascript:{% include 'bookmarklet_launcher.js' %}" class="button">Bookmark it</a>
-</p>
+  {% with total_images_created=request.user.images_created.count %}
+    <p>Welcome to your dashboard. You have bookmarked {{ total_images_created }} image{{ total_images_created|pluralize }}.</p>
+  {% endwith %}
 
+  <p>Drag the following button to your bookmarks toolbar to bookmark images from other websites → <a href="javascript:{% include 'bookmarklet_launcher.js' %}" class="button">Bookmark it</a></p>
+    {# Above way is helps us write clean code with linebreaks like normal unlike the down way. #}
+  {% comment %} <p>Drag the following button to your bookmarks toolbar to bookmark images from other websites → <a href="javascript:(function() {let script = document.createElement('script');script.src = 'https://mysite.com:8000/static/js/bookmarklet.js';document.body.appendChild(script);})();" class="button">Bookmark it</a></p> {% endcomment %}
 
-<p>You can also <a href="{% url 'edit' %}">edit your profile</a>
-  or <a href="{% url 'password_change' %}">change your password</a>.</p>
-{% endblock content %}
+  <p>You can also <a href="{% url "edit" %}">edit your profile</a> or <a href="{% url "password_change" %}">change your password</a>.</p>
+{% endblock %}
