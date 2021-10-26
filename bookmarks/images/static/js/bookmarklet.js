@@ -28,17 +28,18 @@
     });
 
     // find images and display them
-    jQuery.each(jQuery('img[src$="jpg"],[src$="png"]'), function (index, image) {
+    jQuery.each(jQuery('img[src*=".jpg"],[src*=".png"]'), function (index, image) {
       if (jQuery(image).width() >= min_width && jQuery(image).height() >= min_height) {
-        image_url = jQuery(image).attr('src');
+        // image_url = jQuery(image).attr('src');
+        image_url = $(image)[0].src;
         jQuery('#bookmarklet .images').append('<a href="#"><img src="' + image_url + '" /></a>');
-
       }
     });
 
     // when an image is selected open URL with it
     jQuery('#bookmarklet .images a').click(function (e) {
       selected_image = jQuery(this).children('img').attr('src');
+      // selected_image = $('img')[0].src;
       // hide bookmarklet
       jQuery('#bookmarklet').hide();
       // open new window to submit the image
