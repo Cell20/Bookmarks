@@ -44,7 +44,6 @@
       jQuery('#bookmarklet').hide();
       // open new window to submit the image
       window.open(site_url + 'images/create/?title=' + encodeURIComponent(jQuery('title').text()) + '&url=' + encodeURIComponent(selected_image), '_blank');
-
     });
 
   };
