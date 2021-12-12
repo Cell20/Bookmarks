@@ -12,21 +12,22 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 @login_required
 def image_list(request):
-    images = Image.objects.all()
-    paginator = Paginator(images, 3)
+    """List all the images."""
+    object_list = Image.objects.all()
+    paginator = Paginator(object_list, 8)
     page = request.GET.get('page')
     try:
         images = paginator.page(page)
     except PageNotAnInteger:
         # If page is not an integer deliver the first page
-        image = paginator.page(1)
+        images = paginator.page(1)
     except EmptyPage:
         if request.is_ajax():
             # If the request is AJAX and the page is out of range
             # return an empty page
             return HttpResponse('')
-        # if page is out of range deliver last page of results
-        image = paginator.page(paginator.num_pages)
+
+        images = paginator.page(paginator.num_pages)
     if request.is_ajax():
         context = {'section': 'images', 'images': images}
         return render(request, 'images/image/list_ajax.html', context)

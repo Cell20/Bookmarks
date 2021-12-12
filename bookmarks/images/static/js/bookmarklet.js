@@ -36,16 +36,32 @@
       }
     });
 
+
+
+
     // when an image is selected open URL with it
     jQuery('#bookmarklet .images a').click(function (e) {
       selected_image = jQuery(this).children('img').attr('src');
+
+
+      // Code to remove the last random numbers from the img url which are used to prevent caching actually forced me to write extra code.
+      let newrl
+      if (selected_image.includes('.png')) {
+        newrl = selected_image.slice(0, selected_image.lastIndexOf(".png") + 4);
+      } else if (selected_image.includes('.jpg')) {
+        newrl = selected_image.slice(0, selected_image.lastIndexOf(".jpg") + 4);
+      }
+
+      console.log(newrl);
+
+
+
       // selected_image = $('img')[0].src;
       // hide bookmarklet
       jQuery('#bookmarklet').hide();
       // open new window to submit the image
-      window.open(site_url + 'images/create/?title=' + encodeURIComponent(jQuery('title').text()) + '&url=' + encodeURIComponent(selected_image), '_blank');
+      window.open(site_url + 'images/create/?title=' + encodeURIComponent(jQuery('title').text()) + '&url=' + encodeURIComponent(newrl), '_blank');
     });
-
   };
 
   // Check if jQuery is loaded

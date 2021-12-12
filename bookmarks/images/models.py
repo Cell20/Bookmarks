@@ -8,8 +8,8 @@ from django.urls import reverse
 class Image(models.Model):
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL, related_name='images_created', on_delete=models.CASCADE)
-    title = models.CharField(max_length=200)
-    slug = models.SlugField(max_length=200, blank=True)
+    title = models.CharField(max_length=500)
+    slug = models.SlugField(max_length=500, blank=True)
     url = models.URLField()
     image = models.ImageField(upload_to='images/%Y/%m/%d/')
     description = models.TextField(blank=True)
