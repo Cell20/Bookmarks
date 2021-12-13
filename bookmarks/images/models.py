@@ -11,9 +11,10 @@ class Image(models.Model):
     title = models.CharField(max_length=500)
     slug = models.SlugField(max_length=500, blank=True)
     url = models.URLField()
-    image = models.ImageField(upload_to='images/%Y/%m/%d/')
+    image = models.ImageField(
+        upload_to='images/%Y/%m/%d/')
     description = models.TextField(blank=True)
-    created = models.DateTimeField(auto_now_add=True, db_index=True)
+    created = models.DateField(auto_now_add=True, db_index=True)
     users_like = models.ManyToManyField(
         settings.AUTH_USER_MODEL, related_name='images_liked', blank=True)
 
