@@ -1,27 +1,33 @@
 {% extends "base.html" %}
 {% load thumbnail %}
 
-
 {% block title %}People{% endblock title %}
-
 
 {% block content %}
 <h1>People</h1>
 
 <div id="people-list">
   {% for user in users %}
-  <div class="user">
-    {% thumbnail user.profile.photo 200x200 upscale as im %}
-    <a href="{{ user.get_absolute_url }}">
-      <img src="{{ im.url }}" alt="pfp-of-{{ user.first_name }}">
-    </a>
+    {% if user != request.user %}
+      <div class="user">
+        {% thumbnail user.profile.photo 200x200 upscale as im %}
 
-    <div class="info">
-      <a href="{{ user.get_absolute_url }}" class="title">
-        {{ user.get_full_name }}
-      </a>
-    </div>
+        <a href="{{ user.get_absolute_url }}">
+          <img src="{% if im.url %}{{ im.url }}{% else %}https://mysite.com:8000/media/users/avatar.png/{% endif %}" alt="{{ user.username }}'s photo">
+        </a>
+
+        <div class="info">
+          <a href="{{ user.get_absolute_url }}" class="title">
+
+            {% if user.get_full_name %}
+              {{ user.get_full_name }}
+            {% else %}
+              {{ user.username }}
+            {% endif %}
+          </a>
+        </div>
   </div>
+    {% endif %}
 
   {% endfor %}
 </div>
