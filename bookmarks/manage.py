@@ -2,7 +2,11 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
-
+# social_env
+# __pycache__/
+# *.sqlite3
+# *.pyc
+# social_env/
 
 def main():
     """Run administrative tasks."""

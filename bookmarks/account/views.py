@@ -40,7 +40,7 @@ def user_follow(request):
 
 @login_required
 def user_list(request):
-    users = User.objects.all()
+    users = User.objects.filter(is_active=True)
     context = {'section': 'people', 'users': users}
     return render(request, 'account/user/list.html', context)
 
