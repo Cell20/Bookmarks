@@ -9,10 +9,11 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
-
+# pip install python-decouple
 from pathlib import Path
 from django.urls import reverse_lazy
 import os
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -22,13 +23,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-vxa4@^j03*#@%xihnmxw-9h2#v+iba=@4)fooggwycq+ry7k*3'
+SECRET_KEY = config("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = ['mysite.com', 'localhost', '127.0.0.1', 'amazon.com']
-
+# if not DEBUG:
+#     ALLOWED_HOSTS += [os.environ.get('ALLOWED_HOST')]
 # Email settings
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
@@ -151,26 +153,26 @@ AUTHENTICATION_BACKENDS = [
 
 
 # FACEBOOK
-SOCIAL_AUTH_FACEBOOK_KEY = '240509848053994'  # FB App ID
-SOCIAL_AUTH_FACEBOOK_SECRET = '6e8f8b4649f47b4e8882b3c6f4f90719'  # FB App Secret
+SOCIAL_AUTH_FACEBOOK_KEY = config("FACEBOOK_KEY")  # FB App ID
+SOCIAL_AUTH_FACEBOOK_SECRET = config("FACEBOOK_SECRET")  # FB App Secret
 
 
 # TWITTER
-SOCIAL_AUTH_TWITTER_KEY = 'hDTK3VrRaGIZVrulSslafRdSQ'  # Twitter API Key
+SOCIAL_AUTH_TWITTER_KEY = config("TWITTER_KEY")  # Twitter API Key
 # Twitter API Secret
-SOCIAL_AUTH_TWITTER_SECRET = '0TU9GQO1T6N0faLIXBWGdu69bp5tB5pegf7yZ7KGMzYFfMs0LE'
+SOCIAL_AUTH_TWITTER_SECRET = config("TWITTER_SECRET")
 
 # GOOGLE
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '535347613404-9uutoemmptq3a9qk5dpjeeilfgbje2a0.apps.googleusercontent.com'
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = config("GOOGLE_KEY")
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = config("GOOGLE_SECRET")
 
 # GITHUB
-SOCIAL_AUTH_GITHUB_KEY = '76c58618a59858ba176c'
-SOCIAL_AUTH_GITHUB_SECRET = '787d38f6dc3134efd6bd7e36323f739e45c07d68'
+SOCIAL_AUTH_GITHUB_KEY = config("GITHUB_KEY")
+SOCIAL_AUTH_GITHUB_SECRET = config("GITHUB_SECRET")
 
 # TWITCH
-# SOCIAL_AUTH_TWITCH_KEY = 'clsckr34m2y6jg1aspntyrjplgd9v2'
-# SOCIAL_AUTH_TWITCH_SECRET = 'q9j4tn0cf2kl4bpczve15uf10yef2z'
+# SOCIAL_AUTH_TWITCH_KEY = config("TWITCH_KEY")
+# SOCIAL_AUTH_TWITCH_SECRET = config("TWITCH_SECRET")
 
 ABSOLUTE_URL_OVERRIDES = {
     'auth.user': lambda u: reverse_lazy('user_detail', args=[u.username])

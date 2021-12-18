@@ -2,7 +2,6 @@ from django.db import models
 from django.conf import settings
 from django.utils.text import slugify
 from django.urls import reverse
-# search 'settings.auth_user_model', 'related_name', 'upload_to', 'auto_now_add', db_index
 
 
 class Image(models.Model):

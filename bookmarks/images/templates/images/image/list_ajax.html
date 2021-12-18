@@ -7,11 +7,9 @@
       {% thumbnail image.image 300x300 crop="smart" as im %}
       <a href="{{ image.get_absolute_url }}"> <img src="{{ im.url }}"></a>
     </a>
-{% comment %} >>> from images.models import Image {% endcomment %}
-{% comment %} >>> Image.objects.all() {% endcomment %}
-{% comment %} then try image.get_absolute_url and im.url compare it with user.profile.photo url {% endcomment %}
-
-{% comment %}
+{% comment %} >>> from images.models import Image
+>>> Image.objects.all()
+then try image.get_absolute_url and im.url compare it with user.profile.photo url 
 >>> image           
 <Image: Amazon.com : science toolkit>
 >>> image.get_absolute_url()
