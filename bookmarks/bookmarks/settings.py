@@ -53,7 +53,7 @@ INSTALLED_APPS = [
     'django_extensions',
     'easy_thumbnails',
 ]
-
+THUMBNAIL_DEBUG = True
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

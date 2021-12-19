@@ -18,6 +18,7 @@ class Contact(models.Model):
     """
     user_from: ForeignKey for the user who creates the relationship.
     user_to: ForeignKey for the user being followed.
+    eg = x(user_from) follows y(user_to)
     """
     user_from = models.ForeignKey(
         'auth.User', related_name='rel_from_set', on_delete=models.CASCADE)

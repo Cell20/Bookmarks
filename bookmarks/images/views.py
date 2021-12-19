@@ -64,9 +64,11 @@ def image_create(request):
 
 
 def image_detail(request, id, slug):
+
     image = get_object_or_404(Image, id=id, slug=slug)
     context = {'section': 'images', 'image': image}
     return render(request, 'images/image/detail.html', context)
+    
 
 
 @ajax_required  # Now returns error 400

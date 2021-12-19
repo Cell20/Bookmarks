@@ -1,7 +1,7 @@
 from django.core.management.base import BaseCommand
 from faker import Faker
 import faker.providers
-from account.models import Profile
+from account.models import Profile, Contact
 from django.contrib.auth.models import User
 import urllib.request
 from datetime import date
@@ -37,44 +37,53 @@ class Command(BaseCommand):
                 password=config("PASSWORD")
             )
 
-        for _ in range(5):
-            # Profile fields
-            user = fake.unique.first_name()
+        # for _ in range(5):
+        #     # Profile fields
+        #     user = fake.unique.first_name()
 
-            user = User.objects.create(
-                username=user, password=config("PASSWORD"), first_name=user, last_name=fake.last_name(), email=user+'@gmail.com')
+        #     user = User.objects.create(
+        #         username=user, password=config("PASSWORD"), first_name=user, last_name=fake.last_name(), email=user+'@gmail.com')
 
-            year = date.today().year
-            month = date.today().month
-            day = date.today().day
+        #     year = date.today().year
+        #     month = date.today().month
+        #     day = date.today().day
 
-            if os.path.exists(f'media/users/{year}/{month}/{day}/') == False:
-                os.makedirs(f'media/users/{year}/{month}/{day}/')
+        #     # if os.path.exists(f'media/users/{year}/{month}/{day}/') == False:
+        #     # os.makedirs(f'media/users/{year}/{month}/{day}/')
 
-            # urllib.request.urlretrieve(
-                # 'https://picsum.photos/200/300.jpg', f"media/users/{year}/{month}/{day}/{user}.jpg")
+        #     # urllib.request.urlretrieve(
+        #     # 'https://picsum.photos/200/300.jpg', f"media/users/{year}/{month}/{day}/{user}.jpg")
 
-            Profile.objects.create(user=user, date_of_birth=fake.date())
-            # ), photo=f"users/{year}/{month}/{day}/{user.first_name}.jpg")
+        #     Profile.objects.create(
+        #         user=user, date_of_birth=fake.date(), photo='users/avatar.png')
+        #     # , photo=f"users/{year}/{month}/{day}/{user.first_name}.jpg")
 
-            # Image fields
-            title = f"{fake.word()} {fake.word()} {fake.word()}"
-            slug = fake.unique.slug()
-            des = fake.unique.text()
+        #     # Image fields
+        #     title = f"{fake.word()} {fake.word()} {fake.word()}"
+        #     slug = fake.unique.slug()
+        #     des = fake.unique.text()
 
-            urllib.request.urlretrieve(
-                'https://picsum.photos/200/300.jpg', f"media/images/{year}/{month}/{day}/{slug}.jpg")
+        #     if os.path.exists(f'media/images/{year}/{month}/{day}/') == False:
+        #         os.makedirs(f'media/images/{year}/{month}/{day}/')
+        #     urllib.request.urlretrieve(
+        #         'https://picsum.photos/200/300.jpg', f"media/images/{year}/{month}/{day}/{slug}.jpg")
 
-            current_im = Image.objects.create(user=user, title=title, slug=slug,
-                                              url="https://picsum.photos/200/300.jpg", image=f"images/{year}/{month}/{day}/{slug}.jpg", description=des)
+        #     Image.objects.create(user=user, title=title, slug=slug,
+        #                          url="https://picsum.photos/200/300.jpg", image=f"images/{year}/{month}/{day}/{slug}.jpg", description=des)
 
-            users = User.objects.all()
+        users = User.objects.all()
+        # Liking the Images
+        # add_like = random.sample(
+        #     list(users), random.randint(1, users.count()))
+        # for im in Image.objects.all():
+        #     for like in add_like:
+        #         im.users_like.add(User.objects.get(id=like.id))
 
-            # Liking the Images
-            users_like = random.sample(list(users), random.randint(1, 25))
-            for like in users_like:
-                current_im.users_like.add(User.objects.get(id=like.id))
+        # Though the above commands can create a Image cuz most fields
+        # aren't required but u need to give everyfield value properly to cuz
+        # you're in py shell which wasn't the case in UI
 
-            # Though the above commands can create a Image cuz most fields
-            # aren't required but u need to give everyfield value properly to cuz
-            # you're in py shell which wasn't the case in UI
+        # Follow each other
+        for _ in users:
+            Contact.objects.create(user_from=User.objects.get(id=random.randint(
+                1, users.count())), user_to=User.objects.get(id=random.randint(1, users.count())))
