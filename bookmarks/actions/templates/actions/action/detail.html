@@ -6,7 +6,7 @@
     {% if profile.photo %}
     {% thumbnail user.profile.photo "80x80" crop="100%" as im %}
     <a href="{{ user.get_absolute_url }}">
-      <img src="{{ im.url }}" alt="{{ user.get_full_name }}" class="item-img">
+      <img src="{% if im.url %}{{ im.url }}{% else %}https://mysite.com:8000/media/users/avatar.png{% endif %}" alt="{{ user.get_full_name }}" class="item-img">
     </a>
     {% endif %}
 
@@ -15,7 +15,7 @@
     {% if target.image %}
     {% thumbnail target.image "80x80" crop="100%" as im %}
     <a href="{{ target.get_absolute_url }}">
-      <img src="{{ im.url }}" class="item-img">
+      <img src="{% if im.url %}{{ im.url }}{% else %}https://mysite.com:8000/media/users/avatar.png/{% endif %}" class="item-img">
     </a>
     {% endif %}
     {% endwith %}
@@ -26,7 +26,12 @@
       <span class="date">{{ action.created|timesince }} ago</span>
       <br />
       <a href="{{ user.get_absolute_url }}">
-        {{ user.first_name }}
+        {% if user.firstname %}
+          {{ user.first_name }}
+        {% endif %}
+
+        {{ user.username }}
+
       </a>
       {{ action.verb }}
       {% if action.target %}

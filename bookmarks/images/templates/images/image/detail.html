@@ -36,8 +36,14 @@
 
   {% for user in users_like %}
   <div>
-    <img src="{{ user.profile.photo.url }}">
-    <p>{{ user.first_name }}</p>
+    <img
+      src="{% if user.profile.photo.url %}{{ user.profile.photo.url }}{% else %}https://mysite.com:8000/media/users/avatar.png{% endif %}">
+    <p>
+      {% if user.first_name %}
+      {{ user.first_name }}
+      {% endif %}
+      {{ user.username }}
+    </p>
   </div>
   {% empty %}
   Nobody likes this image yet.
