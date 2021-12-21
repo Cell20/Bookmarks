@@ -16,8 +16,13 @@
 {% with total_likes=image.users_like.count users_like=image.users_like.all %}
 <div class="image-info">
   <div>
+    
+  <span class="count">
+      {{ total_views }} view{{ total_views|pluralize }}
+    </span>
+    
     <span class="count">
-      <span class="total">{{ total_likes }}</span> like{{ total|pluralize }}</span>
+      <span class="total">{{ total_likes }}</span> like{{ total|pluralize }}
     <a href="#" data-id="{{ image.id }}" data-action="{% if request.user in users_like %}un{% endif %}like"
       class="like button">
 

@@ -17,6 +17,10 @@ class Image(models.Model):
     users_like = models.ManyToManyField(
         settings.AUTH_USER_MODEL, related_name='images_liked', blank=True)
 
+    # Ordering images by counting their total likes is more expensive in terms of perfomance
+    # than ordering them by a field that stores total counts.
+    total_likes = models.PositiveIntegerField(db_index=True, default=0)
+
     def __str__(self):
         return self.title
 
